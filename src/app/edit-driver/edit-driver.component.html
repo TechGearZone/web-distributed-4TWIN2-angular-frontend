@@ -1,0 +1,21 @@
+<!-- src/app/edit-driver/edit-driver.component.html -->
+<div class="form-container">
+  <h2>Modifier un Livreur</h2>
+  <form (ngSubmit)="onSubmit()" #driverForm="ngForm" *ngIf="isBrowser">
+    <mat-form-field appearance="fill">
+      <mat-label>Nom</mat-label>
+      <input matInput [(ngModel)]="driver.name" name="name" required>
+      <mat-error *ngIf="driverForm.controls['name']?.hasError('required')">
+        Le nom est requis.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Téléphone</mat-label>
+      <input matInput [(ngModel)]="driver.phone" name="phone" required>
+      <mat-error *ngIf="driverForm.controls['phone']?.hasError('required')">
+        Le téléphone est requis.
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!driverForm.valid">Mettre à jour</button>
+  </form>
+</div>

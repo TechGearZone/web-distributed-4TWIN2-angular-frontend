@@ -1,4 +1,4 @@
-/* src/app/driver-form/driver-form.component.css */
+/* src/app/edit-driver/edit-driver.component.css */
 .form-container {
   max-width: 500px;
   margin: 20px auto;
@@ -8,7 +8,7 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.mat-headline {
+h2 {
   color: #333;
   margin-bottom: 20px;
   text-align: center;

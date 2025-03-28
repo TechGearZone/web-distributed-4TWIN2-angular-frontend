@@ -1,0 +1,28 @@
+<!-- src/app/track-delivery/track-delivery.component.html -->
+<div class="track-container">
+  <h2>Suivi de Livraison</h2>
+
+  <mat-form-field appearance="fill" class="tracking-input">
+    <mat-label>Numéro de suivi</mat-label>
+    <input matInput [(ngModel)]="trackingNumber" (keyup.enter)="trackDelivery()">
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="trackDelivery()">Suivre</button>
+
+  <mat-card *ngIf="delivery" class="delivery-info">
+    <mat-card-header>
+      <mat-card-title>Livraison #{{delivery.id}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>Commande:</strong> {{delivery.orderId}}</p>
+      <p><strong>Statut:</strong> {{delivery.status}}</p>
+      <p><strong>Adresse:</strong> {{delivery.shippingAddress}}</p>
+      <p><strong>Numéro de suivi:</strong> {{delivery.trackingNumber}}</p>
+      <p><strong>Date estimée:</strong> {{delivery.estimatedDeliveryDate}}</p>
+      <p><strong>Livreur:</strong> {{delivery.driverId ? 'ID ' + delivery.driverId : 'Non assigné'}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="error-message" *ngIf="error">
+    {{error}}
+  </div>
+</div>

@@ -35,6 +35,46 @@ export class DeliveryService {
     );
   }
 
+  createDriver(driver: Driver): Observable<Driver> {
+    return this.http.post<Driver>(this.apiUrlDrivers, driver).pipe(
+      tap(data => console.log('Livreur créé :', data)),
+      catchError(err => {
+        console.error('Erreur lors de la création du livreur :', err);
+        throw err;
+      })
+    );
+  }
+
+  updateDriver(id: number, driver: Driver): Observable<Driver> {
+    return this.http.put<Driver>(`${this.apiUrlDrivers}/${id}`, driver).pipe(
+      tap(data => console.log('Livreur mis à jour :', data)),
+      catchError(err => {
+        console.error('Erreur lors de la mise à jour du livreur :', err);
+        throw err;
+      })
+    );
+  }
+
+  deleteDriver(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrlDrivers}/${id}`).pipe(
+      tap(() => console.log(`Livreur ${id} supprimé`)),
+      catchError(err => {
+        console.error('Erreur lors de la suppression du livreur :', err);
+        throw err;
+      })
+    );
+  }
+
+  getDriverById(id: number): Observable<Driver> {
+    return this.http.get<Driver>(`${this.apiUrlDrivers}/${id}`).pipe(
+      tap(data => console.log('Livreur récupéré :', data)),
+      catchError(err => {
+        console.error('Erreur lors de la récupération du livreur :', err);
+        throw err;
+      })
+    );
+  }
+
   createDelivery(delivery: Delivery): Observable<Delivery> {
     return this.http.post<Delivery>(this.apiUrl, delivery).pipe(
       tap(data => console.log('Livraison créée :', data)),
@@ -45,11 +85,11 @@ export class DeliveryService {
     );
   }
 
-  createDriver(driver: Driver): Observable<Driver> {
-    return this.http.post<Driver>(this.apiUrlDrivers, driver).pipe(
-      tap(data => console.log('Livreur créé :', data)),
+  trackDelivery(trackingNumber: string): Observable<Delivery> {
+    return this.http.get<Delivery>(`${this.apiUrl}/track?trackingNumber=${trackingNumber}`).pipe(
+      tap(data => console.log('Livraison suivie :', data)),
       catchError(err => {
-        console.error('Erreur lors de la création du livreur :', err);
+        console.error('Erreur lors du suivi de la livraison :', err);
         throw err;
       })
     );
