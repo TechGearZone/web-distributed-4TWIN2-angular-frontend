@@ -1,0 +1,28 @@
+.main-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  nav {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    a {
+      text-decoration: none;
+      color: #3f51b5;
+      font-weight: bold;
+
+      &.active {
+        color: #f44336;
+        border-bottom: 2px solid #f44336;
+      }
+    }
+  }
+}

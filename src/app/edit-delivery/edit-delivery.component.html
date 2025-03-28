@@ -1,0 +1,33 @@
+<!-- src/app/edit-delivery/edit-delivery.component.html -->
+<div class="form-container">
+  <h2 class="mat-headline">Modifier une Livraison</h2>
+  <form (ngSubmit)="onSubmit()" *ngIf="isBrowser">
+    <mat-form-field appearance="fill">
+      <mat-label>ID de la commande</mat-label>
+      <input matInput [(ngModel)]="delivery.orderId" name="orderId" type="number" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Statut</mat-label>
+      <input matInput [(ngModel)]="delivery.status" name="status" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Adresse de livraison</mat-label>
+      <input matInput [(ngModel)]="delivery.shippingAddress" name="shippingAddress" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Numéro de suivi</mat-label>
+      <input matInput [(ngModel)]="delivery.trackingNumber" name="trackingNumber" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Date estimée</mat-label>
+      <input matInput [(ngModel)]="delivery.estimatedDeliveryDate" name="estimatedDeliveryDate" type="date" required>
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="primary" type="submit">Mettre à jour</button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()">Annuler</button>
+    </div>
+  </form>
+  <div *ngIf="!isBrowser">
+    <p>Formulaire de modification en cours de chargement...</p>
+  </div>
+</div>

@@ -1,0 +1,129 @@
+/* Conteneur principal */
+.container {
+  padding: 20px;
+  overflow-x: auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Style du tableau */
+.mat-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 16px 24px;
+  text-align: left;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.mat-header-cell {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: 500;
+}
+
+.mat-cell {
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Lignes alternées */
+.mat-row:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+/* Effet au survol de chaque ligne */
+.mat-row:hover {
+  background-color: #e8f5e9;
+}
+
+/* Colonne des actions */
+.mat-column-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mat-column-actions button {
+  width: 100%;
+  min-width: 120px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+/* Boutons avec couleur différente pour chaque action */
+button.mat-raised-button {
+  text-transform: none;
+  border-radius: 8px;
+}
+
+button.mat-raised-button:hover {
+  background-color: #388e3c; /* Hover effect */
+}
+
+button.mat-raised-button.color-primary {
+  background-color: #00796b;
+  color: white;
+}
+
+button.mat-raised-button.color-primary:hover {
+  background-color: #004d40;
+}
+
+button.mat-raised-button.color-warn {
+  background-color: #d32f2f;
+  color: white;
+}
+
+button.mat-raised-button.color-warn:hover {
+  background-color: #b71c1c;
+}
+
+button.mat-raised-button.color-accent {
+  background-color: #1976d2;
+  color: white;
+}
+
+button.mat-raised-button.color-accent:hover {
+  background-color: #1565c0;
+}
+
+.mat-icon {
+  font-size: 18px;
+}
+
+/* Style des champs de saisie */
+.mat-form-field {
+  min-width: 200px;
+}
+
+.mat-select {
+  width: 100%;
+}
+
+.mat-label {
+  font-weight: 500;
+}
+
+/* Styles pour la recherche */
+.search-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.search-container mat-form-field {
+  flex-grow: 1;
+}
+

@@ -1,0 +1,69 @@
+<!-- src/app/delivery-list/delivery-list.component.html -->
+<div class="container">
+  <h2 class="mat-headline">Liste des Livraisons</h2>
+  <div *ngIf="isBrowser">
+    <div class="search-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Rechercher par numéro de suivi</mat-label>
+        <input matInput [(ngModel)]="searchTrackingNumber" (input)="applyFilter()">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Rechercher par statut</mat-label>
+        <input matInput [(ngModel)]="searchStatus" (input)="applyFilter()">
+      </mat-form-field>
+    </div>
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <!-- Définition des colonnes -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{delivery.id}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="orderId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Commande</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{delivery.orderId}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Statut</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{delivery.status}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="shippingAddress">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Adresse</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{delivery.shippingAddress}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="trackingNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Numéro de suivi</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{delivery.trackingNumber}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="estimatedDeliveryDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Date estimée</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{delivery.estimatedDeliveryDate}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="driverId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Livreur</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{getDriverName(delivery.driverId)}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let delivery" class="mat-column-actions">
+          <mat-form-field appearance="fill">
+            <mat-label>Sélectionner un livreur</mat-label>
+            <mat-select [(ngModel)]="selectedDriverIds[delivery.id]">
+              <mat-option *ngFor="let driver of drivers" [value]="driver.id">{{driver.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="assignDriver(delivery.id)" [disabled]="!selectedDriverIds[delivery.id]">Affecter</button>
+          <button mat-raised-button color="warn" (click)="unassignDriver(delivery.id)" [disabled]="!delivery.driverId">Désaffecter</button>
+          <button mat-raised-button color="accent" (click)="editDelivery(delivery.id)">Modifier</button>
+          <button mat-icon-button color="warn" (click)="deleteDelivery(delivery.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <div *ngIf="!isBrowser">
+    <p>Chargement des livraisons...</p>
+  </div>
+</div>
