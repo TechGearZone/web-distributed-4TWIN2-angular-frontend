@@ -1,0 +1,19 @@
+<header>
+  <div class="navbar navbar-dark bg-primary shadow-sm">
+    <div class="navbar-brand align-item-center d-flex">
+      <i style="font-size: 40px; margin-left:5px;" class="fa fa-truck"></i>&nbsp;
+      <strong class="title" style="font-size: 30px;"> TechGear</strong>
+      <div class="form-group d-flex align-items-center">
+
+        <input type="text" class="form-control" [(ngModel)]="searchTerm" (keyup)="search($event)"
+          placeholder="Search...">
+        <span class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></span>
+
+      </div>
+    </div>
+    <button routerLink="cart" class="btn btn-primary button-cart">
+      <i style="font-size: 30px;" class="fa fa-shopping-cart"></i>
+      <div style="font-size: 11px;" class="badge bg-danger badge-top-left">{{totalItem}}</div>
+    </button>
+  </div>
+</header>

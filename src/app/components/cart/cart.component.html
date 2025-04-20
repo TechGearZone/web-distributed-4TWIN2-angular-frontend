@@ -1,0 +1,51 @@
+<div class="container mt-3">
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Your Cart</h5>
+          <div>
+            <span class="badge bg-light text-dark me-2">{{cartItemCount}} items</span>
+            <span class="badge bg-light text-dark">${{cartTotal | number:'1.2-2'}}</span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngIf="cartItemCount === 0" class="text-center py-3">
+            <i class="fa fa-shopping-cart fa-3x text-muted mb-3"></i>
+            <p>Your cart is empty</p>
+            <a routerLink="/products" class="btn btn-outline-primary">
+              <i class="fa fa-arrow-left"></i> Back to Products
+            </a>
+          </div>
+
+          <div *ngIf="cartItemCount > 0">
+            <ul class="list-group list-group-flush">
+              <li *ngFor="let item of cartItems"
+                class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="badge bg-primary rounded-pill me-2">{{item.quantity}}</span>
+                  {{item.name}}
+                </div>
+                <div>
+                  <span class="me-3">${{item.price * (item.quantity || 1) | number:'1.2-2'}}</span>
+                  <button class="btn btn-sm btn-danger" (click)="removeCartItem(item)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+              </li>
+            </ul>
+
+            <div class="d-grid gap-2 mt-3">
+              <button class="btn btn-success" [routerLink]="['/checkout']">
+                Proceed to Checkout <i class="fa fa-arrow-right"></i>
+              </button>
+              <a routerLink="/products" class="btn btn-outline-secondary">
+                <i class="fa fa-arrow-left"></i> Continue Shopping
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
