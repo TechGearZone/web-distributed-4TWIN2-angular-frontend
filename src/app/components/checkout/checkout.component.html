@@ -1,0 +1,74 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h4>Checkout</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+            <!--
+            <div class="mb-3">
+              <label for="user" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="user" formControlName="user">
+              <div *ngIf="checkoutForm.get('user')?.invalid && checkoutForm.get('user')?.touched" class="text-danger">
+                Full name is required
+              </div>
+
+            </div>
+ -->
+            <div class="mb-3">
+              <label for="shippingAddress" class="form-label">Shipping Address</label>
+              <textarea class="form-control" id="shippingAddress" rows="3" formControlName="shippingAddress"></textarea>
+              <div *ngIf="checkoutForm.get('shippingAddress')?.invalid && checkoutForm.get('shippingAddress')?.touched"
+                class="text-danger">
+                Shipping address is required
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="billingAddress" class="form-label">Billing Address</label>
+              <textarea class="form-control" id="billingAddress" rows="3" formControlName="billingAddress"></textarea>
+              <div *ngIf="checkoutForm.get('billingAddress')?.invalid && checkoutForm.get('billingAddress')?.touched"
+                class="text-danger">
+                Billing address is required
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="checkoutForm.invalid">
+              Proceed to Payment
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header bg-info text-white">
+          <h4>Order Summary</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group mb-3">
+            <li *ngFor="let item of cartItems" class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <h6 class="my-0">{{item.name}}</h6>
+                <small class="text-muted">Quantity: {{item.quantity || 1}}</small>
+              </div>
+              <div>
+                <span class="text-muted">${{item.price}}</span>
+                <button class="btn btn-sm btn-danger ms-2" (click)="removeCartItem(item)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>${{total}}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
