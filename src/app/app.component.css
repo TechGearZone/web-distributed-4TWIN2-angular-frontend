@@ -1,0 +1,10 @@
+/* Sticky footer solution */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* This ensures the container is at least the height of the viewport */
+}
+
+.content-wrap {
+  flex: 1; /* This makes the content expand to fill available space */
+}

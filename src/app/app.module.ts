@@ -11,7 +11,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { FilterPipe } from './shared/filter.pipe';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
-import { PaymentCancelComponent } from './components/payment-cancel/payment-cancel.component'
+import { PaymentCancelComponent } from './components/payment-cancel/payment-cancel.component';
+import { FooterComponent } from './components/footer/footer.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PaymentCancelComponent } from './components/payment-cancel/payment-canc
     FilterPipe,
     CheckoutComponent,
     PaymentSuccessComponent,
-    PaymentCancelComponent
+    PaymentCancelComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
