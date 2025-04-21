@@ -1,10 +1,28 @@
-/* Sticky footer solution */
+/* app.component.css */
+mat-nav-list a {
+  color: #333;
+}
+
+mat-nav-list a.active {
+  background-color: #007bff; /* Blue background for active link */
+  color: white;
+}
+
 .page-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* This ensures the container is at least the height of the viewport */
+  min-height: 100vh;
+}
+
+mat-sidenav-container {
+  flex: 1;
+}
+
+mat-sidenav {
+  width: 200px;
+  background-color: #f5f5f5;
 }
 
 .content-wrap {
-  flex: 1; /* This makes the content expand to fill available space */
+  padding: 20px;
 }
