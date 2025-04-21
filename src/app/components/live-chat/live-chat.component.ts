@@ -10,7 +10,7 @@ export class LiveChatComponent implements OnInit {
   isOpen = false;
   message = '';
   messages: { sender: string, message: string }[] = [];
-  sessionId = 'abc123'; // This should be dynamic based on user
+  sessionId = '661f1ab4c9a5c5a2a1b2c3d4'; // This should be dynamic based on user
 
   constructor(private chatService: ChatService) {}
 
