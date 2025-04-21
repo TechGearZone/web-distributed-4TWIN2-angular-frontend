@@ -1,0 +1,29 @@
+.ticket-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.ticket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.ticket-form input,
+.ticket-form textarea {
+  padding: 8px;
+  font-size: 14px;
+}
+
+.ticket-item {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.ticket-item select {
+  margin-top: 10px;
+}

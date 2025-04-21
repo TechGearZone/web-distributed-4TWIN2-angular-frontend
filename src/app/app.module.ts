@@ -13,7 +13,9 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { PaymentCancelComponent } from './components/payment-cancel/payment-cancel.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LiveChatComponent } from './components/live-chat/live-chat.component'
+import { LiveChatComponent } from './components/live-chat/live-chat.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { SupportTicketComponent } from './components/support-ticket/support-ticket.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { LiveChatComponent } from './components/live-chat/live-chat.component'
     PaymentSuccessComponent,
     PaymentCancelComponent,
     FooterComponent,
-    LiveChatComponent
+    LiveChatComponent,
+    FaqComponent,
+    SupportTicketComponent
   ],
   imports: [
     BrowserModule,

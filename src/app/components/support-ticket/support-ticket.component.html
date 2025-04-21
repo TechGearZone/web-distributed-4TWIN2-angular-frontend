@@ -1,0 +1,26 @@
+<div class="ticket-container">
+  <h2>Support Tickets</h2>
+
+  <div class="ticket-form">
+    <input [(ngModel)]="newTicket.userId" placeholder="User ID" />
+    <input [(ngModel)]="newTicket.subject" placeholder="Subject" />
+    <textarea [(ngModel)]="newTicket.description" placeholder="Description"></textarea>
+    <button (click)="createTicket()">Submit Ticket</button>
+  </div>
+
+  <div *ngFor="let ticket of tickets" class="ticket-item">
+    <h3>{{ ticket.subject }} <small>({{ ticket.status }})</small></h3>
+    <p><strong>User:</strong> {{ ticket.userId }}</p>
+    <p>{{ ticket.description }}</p>
+    <p><small>Created: {{ ticket.createdAt | date:'short' }}</small></p>
+
+    <select [(ngModel)]="ticket.status" (change)="updateStatus(ticket._id!, ticket.status)">
+      <option value="open">Open</option>
+      <option value="in-progress">In Progress</option>
+      <option value="resolved">Resolved</option>
+    </select>
+
+    <button (click)="deleteTicket(ticket._id!)">Delete</button>
+  </div>
+</div>
+
