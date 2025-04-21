@@ -8,7 +8,7 @@ import { Delivery } from '../models/delivery.interface';
   providedIn: 'root' // Add this to make the service available application-wide
 })
 export class DeliveryService {
-  private apiUrl = 'http://localhost:8084/api/deliveries';
+  private apiUrl = 'http://localhost:8093/api/deliveries';
 
   constructor(private http: HttpClient) { }
 
