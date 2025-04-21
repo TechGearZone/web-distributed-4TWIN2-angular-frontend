@@ -20,8 +20,12 @@ export class ProductService {
             // Transform backend data to match the expected format
             return {
               ...product,
-              // Set a default image if images array is empty
-              image: product.images && product.images.length > 0 ? product.images[0] : 'assets/placeholder.png',
+              // This line is causing problems - treating product.image as an array when it's a string
+              // image: product.image && product.image.length > 0 ? product.image[0] : 'assets/placeholder.png',
+
+              // Fix: Use the image string directly from backend
+              image: product.image || 'placeholder.png', // Use the image as is or a placeholder
+
               // Add dummy rating for now (can be replaced with actual rating)
               rating: {
                 rate: 4.0,

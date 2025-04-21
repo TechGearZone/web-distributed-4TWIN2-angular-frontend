@@ -13,23 +13,24 @@
         </a>
       </div>
       <div class="item">
-        <a (click)="filter('electronics')">
+        <a (click)="filter('laptop')">
           <img src="assets/laptop.png" alt="">
           <h6>Computers & Accessories</h6>
         </a>
       </div>
       <div class="item">
-        <a (click)="filter('fashion')">
+        <a (click)="filter('smartphone')">
           <img src="assets/Smartphones.png" alt="">
           <h6>Smartphones & Gadgets</h6>
         </a>
       </div>
       <div class="item">
-        <a (click)="filter('jewelery')">
+        <a (click)="filter('gaming gadget')">
           <img src="assets/gaming.png" alt="">
           <h6>Gaming & Entertainment</h6>
         </a>
       </div>
+
     </div>
     <hr>
   </div>
@@ -40,7 +41,8 @@
       <ng-container *ngFor="let item of filterCategory | filter:searchKey:'name'">
         <div class="card col-md-3">
           <div class="card-body d-flex justify-content-center align-items-center">
-            <img src="{{item.image}}" alt="">
+            <img *ngIf="item.image" [src]="item.image" alt="Product Image">
+            <img *ngIf="!item.image" src="assets/placeholder.png" alt="Default Image">
           </div>
 
           <h5 class="title">{{item.name}}</h5>
