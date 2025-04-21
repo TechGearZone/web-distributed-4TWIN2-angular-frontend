@@ -1,5 +1,6 @@
 <div class="page-container">
   <app-header></app-header>
+
   <mat-sidenav-container>
     <mat-sidenav mode="side" opened>
       <mat-nav-list>
@@ -14,9 +15,10 @@
     <mat-sidenav-content>
       <div class="content-wrap">
         <router-outlet></router-outlet>
+        <app-live-chat></app-live-chat>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
-  <app-live-chat></app-live-chat>
   <app-footer></app-footer>
+
 </div>
