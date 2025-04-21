@@ -6,10 +6,10 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class ChatService {
   private socket: Socket;
-  private restBaseUrl = 'http://localhost:3000/api/customers/chats';
+  private restBaseUrl = 'http://localhost:8093/api/customers/chats';
 
   constructor(private http: HttpClient) {
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://localhost:8093/api/customers');
   }
 
   joinChat(sessionId: string) {
@@ -23,6 +23,7 @@ export class ChatService {
   onNewMessage(callback: (data: any) => void) {
     this.socket.on('newMessage', callback);
   }
+
 
   createChatSession(userId: string) {
     return this.http.post<ChatSession>(this.restBaseUrl, { userId });

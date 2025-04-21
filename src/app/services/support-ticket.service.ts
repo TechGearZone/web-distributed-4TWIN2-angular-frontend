@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SupportTicketService {
-  private baseUrl = 'http://localhost:3000/api/customers/tickets';
+  private baseUrl = 'http://localhost:8093/api/customers/tickets';
 
   constructor(private http: HttpClient) {}
 
