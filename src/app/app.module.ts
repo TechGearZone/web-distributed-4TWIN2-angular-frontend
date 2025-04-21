@@ -1,7 +1,8 @@
+// app.module.ts
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Add for Angular Material
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -16,8 +17,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LiveChatComponent } from './components/live-chat/live-chat.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { SupportTicketComponent } from './components/support-ticket/support-ticket.component';
-import { DeliveryModule } from './delivery/delivery.module'; // Import DeliveryModule
-import { DriverModule } from './driver/driver.module'; // Import DriverModule
+import { DeliveryModule } from './delivery/delivery.module';
+import { DriverModule } from './driver/driver.module';
 // Angular Material Imports
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -30,6 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; // Add this
 
 @NgModule({
   declarations: [
@@ -48,13 +50,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule, // Add for Angular Material
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    DeliveryModule, // Add DeliveryModule
-    DriverModule,   // Add DriverModule
+    DeliveryModule,
+    DriverModule,
     // Angular Material Modules
     MatToolbarModule,
     MatSidenavModule,
@@ -66,7 +68,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatSelectModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule // Add this
   ],
   providers: [],
   bootstrap: [AppComponent]

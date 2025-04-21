@@ -1,1 +1,105 @@
-<p>delivery-list works!</p>
+<!-- delivery-list.component.html -->
+<div class="delivery-list-container">
+  <h2>Deliveries</h2>
+
+  <!-- Debug Message -->
+  <div>Debug: DeliveryListComponent is rendering</div>
+
+  <!-- Search by Status -->
+  <mat-form-field appearance="fill" class="status-filter">
+    <mat-label>Filter by Status</mat-label>
+    <mat-select (selectionChange)="searchByStatus($event.value)">
+      <mat-option value="">All</mat-option>
+      <mat-option value="PENDING">Pending</mat-option>
+      <mat-option value="IN_TRANSIT">In Transit</mat-option>
+      <mat-option value="DELIVERED">Delivered</mat-option>
+      <mat-option value="CANCELLED">Cancelled</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Loading Spinner -->
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage && !isLoading" class="error-message">
+    {{ errorMessage }}
+    <button mat-button color="primary" (click)="loadDeliveries()">Retry</button>
+  </div>
+
+  <!-- Deliveries Table -->
+  <div *ngIf="!isLoading && !errorMessage">
+    <mat-table [dataSource]="dataSource" matSort>
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.id }}</mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.status }}</mat-cell>
+      </ng-container>
+
+      <!-- Tracking Number Column -->
+      <ng-container matColumnDef="trackingNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Tracking Number</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">{{ delivery.trackingNumber }}</mat-cell>
+      </ng-container>
+
+      <!-- Driver ID Column -->
+      <ng-container matColumnDef="driverId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Driver</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">
+          <div class="driver-actions">
+            <span *ngIf="delivery.driverId">
+              {{ delivery.driverId }}
+              <button mat-icon-button (click)="unassignDriver(delivery.id)">
+                <mat-icon>person_remove</mat-icon>
+              </button>
+            </span>
+            <mat-form-field *ngIf="!delivery.driverId" appearance="fill" class="driver-select">
+              <mat-label>Select Driver</mat-label>
+              <mat-select (selectionChange)="assignDriver(delivery.id, $event.value)" [disabled]="drivers.length === 0">
+                <mat-option *ngFor="let driver of drivers" [value]="driver.id">
+                  {{ driver.name }} (ID: {{ driver.id }})
+                </mat-option>
+                <mat-option *ngIf="drivers.length === 0" disabled>No drivers available</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let delivery">
+          <button mat-icon-button [routerLink]="['/deliveries/edit', delivery.id]">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteDelivery(delivery.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button [routerLink]="['/deliveries/track', delivery.trackingNumber]">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Table Header and Rows -->
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <!-- No Data Message -->
+    <div *ngIf="dataSource.data.length === 0" class="no-data">
+      No deliveries found.
+    </div>
+  </div>
+
+  <!-- Create Button -->
+  <button mat-raised-button color="primary" [routerLink]="['/deliveries/create']">
+    Create New Delivery
+  </button>
+</div>

@@ -1,11 +1,14 @@
+// driver.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Driver } from '../models/driver.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root' // Add this
+})
 export class DriverService {
-  private apiUrl = 'http://localhost:8093/api/drivers';
+  private apiUrl = 'http://localhost:8084/api/drivers';
 
   constructor(private http: HttpClient) { }
 

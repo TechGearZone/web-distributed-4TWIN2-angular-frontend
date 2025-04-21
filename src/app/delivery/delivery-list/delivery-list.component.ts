@@ -1,128 +1,135 @@
+// delivery-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { DeliveryService } from '../../services/delivery.service';
+import { Delivery } from '../../models/delivery.interface';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DriverService } from '../../services/driver.service';
 import { Driver } from '../../models/driver.interface';
-import { Router } from '@angular/router';
-import { Delivery } from '../../models/delivery.interface';
 
 @Component({
   selector: 'app-delivery-list',
-  template: `
-    <mat-card>
-      <mat-card-title>Deliveries</mat-card-title>
-      <mat-card-actions>
-        <button mat-raised-button color="primary" routerLink="/deliveries/create">Create Delivery</button>
-        <button mat-raised-button color="accent" routerLink="/deliveries/track">Track Delivery</button>
-      </mat-card-actions>
-      <mat-table [dataSource]="deliveries" matSort>
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-          <mat-cell *matCellDef="let delivery">{{delivery.id}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="orderId">
-          <mat-header-cell *matHeaderCellDef>Order ID</mat-header-cell>
-          <mat-cell *matCellDef="let delivery">{{delivery.orderId}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-          <mat-cell *matCellDef="let delivery">{{delivery.status}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="shippingAddress">
-          <mat-header-cell *matHeaderCellDef>Address</mat-header-cell>
-          <mat-cell *matCellDef="let delivery">{{delivery.shippingAddress}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="trackingNumber">
-          <mat-header-cell *matHeaderCellDef>Tracking</mat-header-cell>
-          <mat-cell *matCellDef="let delivery">{{delivery.trackingNumber}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="driver">
-          <mat-header-cell *matHeaderCellDef>Driver</mat-header-cell>
-          <mat-cell *matCellDef="let delivery">{{getDriverName(delivery.driverId)}}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-          <mat-cell *matCellDef="let delivery">
-            <button mat-button (click)="editDelivery(delivery.id)">Edit</button>
-            <button mat-button color="warn" (click)="deleteDelivery(delivery.id)">Delete</button>
-            <button mat-button *ngIf="!delivery.driverId" (click)="assignDriver(delivery.id)">Assign Driver</button>
-            <button mat-button *ngIf="delivery.driverId" (click)="unassignDriver(delivery.id)">Unassign Driver</button>
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-      <mat-spinner *ngIf="loading"></mat-spinner>
-    </mat-card>
-  `,
-  styles: [`
-    mat-card {
-      margin: 20px;
-      padding: 20px;
-    }
-    mat-table {
-      width: 100%;
-    }
-  `]
+  templateUrl: './delivery-list.component.html',
+  styleUrls: ['./delivery-list.component.css']
 })
 export class DeliveryListComponent implements OnInit {
-  deliveries: Delivery[] = [];
+  displayedColumns: string[] = ['id', 'status', 'trackingNumber', 'driverId', 'actions']; // Removed source and destination
+  dataSource = new MatTableDataSource<Delivery>([]);
+  isLoading = true;
+  errorMessage: string | null = null;
   drivers: Driver[] = [];
-  displayedColumns = ['id', 'orderId', 'status', 'shippingAddress', 'trackingNumber', 'driver', 'actions'];
-  loading = false;
 
   constructor(
     private deliveryService: DeliveryService,
     private driverService: DriverService,
-    private router: Router
-  ) { }
+    private snackBar: MatSnackBar
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    console.log('DeliveryListComponent initialized');
     this.loadDeliveries();
     this.loadDrivers();
   }
 
-  loadDeliveries() {
-    this.loading = true;
+  loadDeliveries(): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+    console.log('Fetching deliveries...');
     this.deliveryService.getAllDeliveries().subscribe({
       next: (deliveries) => {
-        this.deliveries = deliveries;
-        this.loading = false;
+        console.log('Deliveries fetched:', deliveries);
+        this.dataSource.data = deliveries;
+        this.isLoading = false;
       },
-      error: () => this.loading = false
+      error: (err) => {
+        this.errorMessage = 'Failed to load deliveries. Please try again later.';
+        this.isLoading = false;
+        console.error('Error fetching deliveries:', err);
+      }
     });
   }
 
-  loadDrivers() {
-    this.driverService.getAllDrivers().subscribe(drivers => this.drivers = drivers);
-  }
-
-  getDriverName(driverId?: number): string {
-    const driver = this.drivers.find(d => d.id === driverId);
-    return driver ? driver.name : 'None';
-  }
-
-  editDelivery(id?: number) {
-    if (id) this.router.navigate(['/deliveries/edit', id]);
-  }
-
-  deleteDelivery(id?: number) {
-    if (id && confirm('Are you sure?')) {
-      this.deliveryService.deleteDelivery(id).subscribe(() => this.loadDeliveries());
-    }
-  }
-
-  assignDriver(deliveryId?: number) {
-    if (deliveryId) {
-      const driverId = prompt('Enter Driver ID:');
-      if (driverId) {
-        this.deliveryService.assignDriver(deliveryId, +driverId).subscribe(() => this.loadDeliveries());
+  loadDrivers(): void {
+    this.driverService.getAllDrivers().subscribe({
+      next: (drivers) => {
+        this.drivers = drivers;
+        console.log('Drivers fetched:', drivers);
+        if (drivers.length === 0) {
+          this.snackBar.open('No drivers available for assignment.', 'Close', { duration: 3000 });
+        }
+      },
+      error: (err) => {
+        this.snackBar.open('Failed to load drivers.', 'Close', { duration: 3000 });
+        console.error('Error fetching drivers:', err);
       }
+    });
+  }
+
+  deleteDelivery(id: number): void {
+    if (confirm('Are you sure you want to delete this delivery?')) {
+      this.deliveryService.deleteDelivery(id).subscribe({
+        next: () => {
+          console.log(`Delivery ${id} deleted`);
+          this.snackBar.open('Delivery deleted successfully', 'Close', { duration: 3000 });
+          this.loadDeliveries();
+        },
+        error: (err) => {
+          this.snackBar.open('Failed to delete delivery', 'Close', { duration: 3000 });
+          console.error('Error deleting delivery:', err);
+        }
+      });
     }
   }
 
-  unassignDriver(deliveryId?: number) {
-    if (deliveryId) {
-      this.deliveryService.unassignDriver(deliveryId).subscribe(() => this.loadDeliveries());
+  searchByStatus(status: string): void {
+    if (!status) {
+      this.loadDeliveries();
+      return;
     }
+    this.isLoading = true;
+    this.errorMessage = null;
+    this.deliveryService.searchByStatus(status).subscribe({
+      next: (deliveries) => {
+        this.dataSource.data = deliveries;
+        this.isLoading = false;
+        this.snackBar.open(`Filtered by status: ${status}`, 'Close', { duration: 3000 });
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to search deliveries by status.';
+        this.isLoading = false;
+        this.snackBar.open('Failed to search by status', 'Close', { duration: 3000 });
+        console.error('Error searching deliveries:', err);
+      }
+    });
+  }
+
+  assignDriver(deliveryId: number, driverId: number): void {
+    if (!driverId) {
+      this.snackBar.open('Please select a driver', 'Close', { duration: 3000 });
+      return;
+    }
+    this.deliveryService.assignDriver(deliveryId, driverId).subscribe({
+      next: () => {
+        this.snackBar.open('Driver assigned successfully', 'Close', { duration: 3000 });
+        this.loadDeliveries();
+      },
+      error: (err) => {
+        this.snackBar.open('Failed to assign driver', 'Close', { duration: 3000 });
+        console.error('Error assigning driver:', err);
+      }
+    });
+  }
+
+  unassignDriver(deliveryId: number): void {
+    this.deliveryService.unassignDriver(deliveryId).subscribe({
+      next: () => {
+        this.snackBar.open('Driver unassigned successfully', 'Close', { duration: 3000 });
+        this.loadDeliveries();
+      },
+      error: (err) => {
+        this.snackBar.open('Failed to unassign driver', 'Close', { duration: 3000 });
+        console.error('Error unassigning driver:', err);
+      }
+    });
   }
 }

@@ -1,9 +1,12 @@
+// delivery.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Delivery } from '../models/delivery.interface';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root' // Add this to make the service available application-wide
+})
 export class DeliveryService {
   private apiUrl = 'http://localhost:8084/api/deliveries';
 

@@ -17,13 +17,15 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'ticket', component: SupportTicketComponent },
+  {path:'delivery', loadChildren: () => import('./delivery/delivery.module').then(m => m.DeliveryModule)}, // Lazy loading for DeliveryModule
+  // Updated lazy loading syntax for Angular 14+
   { path: 'deliveries', loadChildren: () => import('./delivery/delivery.module').then(m => m.DeliveryModule) },
   { path: 'drivers', loadChildren: () => import('./driver/driver.module').then(m => m.DriverModule) },
-  { path: '**', redirectTo: 'products' }
+  { path: '**', redirectTo: 'products', pathMatch: 'full' } // Ensure full match for wildcard
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })], // Enable tracing for debugging (optional)
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,3 +1,4 @@
+// delivery.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DeliveryRoutingModule } from './delivery-routing.module';
@@ -12,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; // Add this
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSelectModule,
     ReactiveFormsModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule, // Ensure this is included
+    MatIconModule
   ]
 })
 export class DeliveryModule { }
