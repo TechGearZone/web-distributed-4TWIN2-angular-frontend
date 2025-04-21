@@ -12,7 +12,8 @@ import { FilterPipe } from './shared/filter.pipe';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { PaymentSuccessComponent } from './components/payment-success/payment-success.component';
 import { PaymentCancelComponent } from './components/payment-cancel/payment-cancel.component';
-import { FooterComponent } from './components/footer/footer.component'
+import { FooterComponent } from './components/footer/footer.component';
+import { LiveChatComponent } from './components/live-chat/live-chat.component'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FooterComponent } from './components/footer/footer.component'
     CheckoutComponent,
     PaymentSuccessComponent,
     PaymentCancelComponent,
-    FooterComponent
+    FooterComponent,
+    LiveChatComponent
   ],
   imports: [
     BrowserModule,
