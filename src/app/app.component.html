@@ -1,2 +1,24 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<div class="page-container">
+  <app-header></app-header>
+
+  <mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/products" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Products</a>
+        <a mat-list-item routerLink="/cart" routerLinkActive="active">Cart</a>
+        <a mat-list-item routerLink="/faq" routerLinkActive="active">FAQ</a>
+        <a mat-list-item routerLink="/ticket" routerLinkActive="active">Support Ticket</a>
+        <a mat-list-item routerLink="/deliveries" routerLinkActive="active">Deliveries</a>
+        <a mat-list-item routerLink="/drivers" routerLinkActive="active">Drivers</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="content-wrap">
+        <router-outlet></router-outlet>
+        <app-live-chat></app-live-chat>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <app-footer></app-footer>
+
+</div>

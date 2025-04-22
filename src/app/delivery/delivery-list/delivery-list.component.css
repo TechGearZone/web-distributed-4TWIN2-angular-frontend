@@ -1,0 +1,65 @@
+/* delivery-list.component.css */
+.delivery-list-container {
+  padding: 20px;
+}
+
+.error-message {
+  color: red;
+  margin: 10px 0;
+  font-size: 16px;
+  display: block;
+}
+
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 16px;
+  display: block;
+}
+
+mat-spinner {
+  margin: 20px auto;
+}
+
+mat-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Style the status filter dropdown */
+mat-form-field.status-filter {
+  margin-bottom: 20px;
+  width: 200px;
+}
+
+/* Style the driver assignment dropdown */
+mat-form-field.driver-select {
+  width: 200px;
+  margin-left: 10px;
+}
+
+/* Ensure buttons in the driverId column are aligned */
+mat-cell .driver-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Adjust column widths for better readability */
+mat-header-cell,
+mat-cell {
+  padding: 8px;
+}
+
+/* Specific styling for the driverId column to prevent overflow */
+mat-header-cell[matColumnDef="driverId"],
+mat-cell[matCellDef="let delivery"][matColumnDef="driverId"] {
+  min-width: 220px;
+}
+
+/* Style the actions column buttons */
+mat-cell[matCellDef="let delivery"][matColumnDef="actions"] {
+  display: flex;
+  gap: 5px;
+}
